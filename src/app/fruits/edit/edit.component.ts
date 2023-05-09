@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Fruits } from '../fruits';
 import { FruitsService } from '../fruits.service';
+import { Category } from 'src/app/category/category';
+import { CategoryService } from 'src/app/category/category.service';
  
 @Component({
   selector: 'app-edit',
@@ -9,16 +11,23 @@ import { FruitsService } from '../fruits.service';
   styleUrls: ['./edit.component.css'],
 })
 export class EditComponent implements OnInit {
+  allCategories: Category[]=[];
   fruitForm: Fruits = {
     id: 0,
     name: '',
     price: 0,
     quantity: 0,
+    category:{
+      id: 0,
+      name: '',
+      description: ''
+    }
   };
   constructor(
     private route: ActivatedRoute,
     private router:Router,
-    private fruitService: FruitsService
+    private fruitService: FruitsService,
+    private categoryService: CategoryService,
   ) {}
  
   ngOnInit(): void {
@@ -26,6 +35,15 @@ export class EditComponent implements OnInit {
       var id = Number(param.get('id'));
       this.getById(id);
     });
+    this.get();
+  }
+ 
+  get() {
+    this.categoryService.get().subscribe((data) => {
+      this.allCategories = data;
+
+    });
+  
   }
  
   getById(id: number) {

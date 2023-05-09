@@ -13,6 +13,13 @@
         <label for="txtQuantity" class="form-label">Quantity</label>
         <input type="number" name="quantity" [(ngModel)] = "fruitForm.quantity" class="form-control" id="txtQuantity" />
       </div>
+      <div class="mb-3">
+        <label for="txtCategory" class="form-label">Category</label>
+        <select  name="category" [(ngModel)] = "fruitForm.category.id" class="form-control" >
+          <option *ngFor="let a of allCategories"  [value]="a.id">{{a.name}}</option>
+          
+        </select>
+        </div>
       <button type="button" (click)="update()" class="btn btn-primary">Update</button>
     </form>
 </div>
